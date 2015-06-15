@@ -1,5 +1,6 @@
 package com.elsea.stone;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,7 +10,8 @@ public class PropertyGroup extends PropertyElement
 	
 	public PropertyGroup()
 	{
-		setEmpty(false);
+		elements = new ArrayList<PropertyElement>();
+		setEmpty(true);
 	}
 	
 	public void addElement(PropertyElement element)
@@ -31,8 +33,13 @@ public class PropertyGroup extends PropertyElement
 	
 	public PropertyElement getChildOfName(String name)
 	{
-		return getChildrenOfName(name).stream()
-			.findFirst()
+		return null;
+	}
+	
+	public boolean hasChildGroups()
+	{
+		if (elements.size() > 0 || getChildGroups().size() > 0) return false;
+		else return true;
 	}
 	
 	public List<PropertyElement> getChildGroups()
@@ -52,5 +59,15 @@ public class PropertyGroup extends PropertyElement
 	public List<PropertyElement> getChildren()
 	{
 		return elements;
+	}
+	
+	public void print()
+	{
+		System.out.println("Group: " + getName());
+		
+		for (PropertyElement element : elements)
+		{
+			element.print();
+		}
 	}
 }

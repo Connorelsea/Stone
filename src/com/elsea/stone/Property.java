@@ -41,4 +41,10 @@ public class Property extends PropertyElement
 		return defaultValue;
 	}
 	
+	
+	public void print()
+	{
+		System.out.println("\tProperty: " + currentValue);
+	}
+	
 }
