@@ -4,71 +4,57 @@ import java.util.Stack;
 
 public class PropertyPoolTemplate
 {
-	private Stack<PropertyGroup> activeGroups;
 	private Stack<PropertyGroup> groups;
+	private PropertyGroup head;
 	
 	public PropertyPoolTemplate()
 	{
-		activeGroups = new Stack<PropertyGroup>();
 		groups = new Stack<PropertyGroup>();
 	}
 	
+	/**
+	 * Start a new group nested under the current group. If there is no current group,
+	 * a central parent group will be created and all children groups will  be  nested
+	 * within in.
+	 * 
+	 * @param name The name of the group to be created
+	 */
 	public PropertyPoolTemplate group(String name)
 	{
+		if (groups.size() == 0)
+		{
+			PropertyGroup group = new PropertyGroup();
+			group.setName("Central Parent Group");
+			groups.push(group);
+		}
+		
+		// need to address parent groups
+		
 		PropertyGroup group = new PropertyGroup();
 		group.setName(name);
-		
-		if (activeGroups.size() > 0)
-		{
-			activeGroups.peek().addElement(group);
-		}
-		activeGroups.push(group);
+		groups.push(group);
 		
 		return this;
 	}
 	
 	public PropertyPoolTemplate end()
 	{
-		if (activeGroups.size() > 0)
+		int size = groups.size();
+		
+		if (size == 0)
 		{
-			PropertyGroup group = activeGroups.pop();
-			System.out.println("Ending group " + group.getName());
-			groups.push(group);
+			System.err.println("Error: Cannot use end. No groups have been created.");
 		}
-		else
-		{
-			System.err.println("Error: No active groups to end.");
-		}
+		
 		
 		return this;
 	}
 	
-	public PropertyPoolTemplate property(String key, String defaultValue)
+	public PropertyPoolTemplate showStack()
 	{
-		if (activeGroups.size() > 0)
+		for (int i = groups.size() - 1; i >= 0; i--)
 		{
-			Property property = new Property();
-			property.setName(key);
-			property.setDefaultValue(defaultValue);
-			property.setCurrentValue(defaultValue);
-			
-			activeGroups.peek().addElement(property);
-		}
-		else
-		{
-			System.err.println("Error: No active groups, cannot add property.");
-		}
-		
-		return this;
-	}
-	
-	public PropertyPoolTemplate view()
-	{
-		Stack<PropertyGroup> buffer = (Stack<PropertyGroup>) groups.clone();
-		
-		for (int i = 0; i < buffer.size(); i++)
-		{
-			buffer.pop().print();
+			System.out.println(i + ". " + groups.get(i).getName());
 		}
 		
 		return this;

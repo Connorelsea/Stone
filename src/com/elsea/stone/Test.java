@@ -8,19 +8,25 @@ public class Test
 		
 		PropertyPoolTemplate p = new PropertyPoolTemplate();
 		
+//		p
+//			.group("settings")
+//				.group("behavior")
+//					.property("ProgramLaunchAction",  "ViewModern")
+//					.property("ScreenshotEndAction",  "PictureView")
+//					.property("ScreenshotCopyAction", "Copy")
+//				.end()
+//				.group("paths")
+//					.property("PictureSave", "/pics")
+//				.end()
+//			.end()
+//			.view()
+//		;
+		
+		
 		p
-			.group("settings")
-				.group("behavior")
-					.property("ProgramLaunchAction",  "ViewModern")
-					.property("ScreenshotEndAction",  "PictureView")
-					.property("ScreenshotCopyAction", "Copy")
-				.end()
-				.group("paths")
-					.property("PictureSave", "/pics")
-				.end()
-			.end()
-			.view()
-		;
+			.group("test")
+				.group("baby")
+			.showStack();
 		
 	}
 	
