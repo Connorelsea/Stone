@@ -1,4 +1,4 @@
-package com.elsea.stone;
+package com.elsea.stone.property;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +63,10 @@ public class PropertyGroup extends PropertyElement
 	
 	public void print(int level)
 	{
-		for (int i = 0; i < level; i++) System.out.print(" |   ");
+		for (int i = 0; i < level; i++) {
+			if (i < level - 1) System.out.print("|     ");
+			else System.out.print("|     ");
+		}
 		System.out.println("Group: " + getName());
 		
 		for (PropertyElement element : children)

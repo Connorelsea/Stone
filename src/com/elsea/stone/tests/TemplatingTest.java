@@ -1,13 +1,25 @@
-package com.elsea.stone;
+package com.elsea.stone.tests;
 
-public class Test
-{
+import static org.junit.Assert.*;
 
-	public static void main(String[] args)
+import org.junit.Before;
+import org.junit.Test;
+
+import com.elsea.stone.property.PropertyPoolTemplate;
+
+public class TemplatingTest {
+	
+	private PropertyPoolTemplate p;
+
+	@Before
+	public void setUp()
 	{
-		
-		PropertyPoolTemplate p = new PropertyPoolTemplate();
-		
+		p = new PropertyPoolTemplate();
+	}
+	
+	@Test
+	public void testTemplate()
+	{
 		p
 			.group("software")
 			
@@ -35,6 +47,7 @@ public class Test
 			
 			.show();
 		
+		assertEquals("Parent element exists", "parent", p.getParent().getName());
 	}
-	
+
 }

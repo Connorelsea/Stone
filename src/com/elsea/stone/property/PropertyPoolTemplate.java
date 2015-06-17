@@ -1,4 +1,4 @@
-package com.elsea.stone;
+package com.elsea.stone.property;
 
 import java.util.Stack;
 
@@ -57,6 +57,11 @@ public class PropertyPoolTemplate
 	public void show()
 	{
 		parent.print(0);
+	}
+	
+	public PropertyGroup getParent()
+	{
+		return parent;
 	}
 	
 }

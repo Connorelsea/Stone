@@ -1,4 +1,4 @@
-package com.elsea.stone;
+package com.elsea.stone.property;
 
 
 /**
@@ -44,7 +44,7 @@ public class Property extends PropertyElement
 	
 	public void print(int level)
 	{
-		for (int i = 0; i < level; i++) System.out.print(" |   ");
+		for (int i = 0; i < level; i++) System.out.print("|     ");
 		System.out.println("> (" + getName() + " : " + currentValue + ")");
 	}
 	

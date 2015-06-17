@@ -1,4 +1,4 @@
-package com.elsea.stone;
+package com.elsea.stone.property;
 
 import java.util.List;
 
