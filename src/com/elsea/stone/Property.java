@@ -42,9 +42,10 @@ public class Property extends PropertyElement
 	}
 	
 	
-	public void print()
+	public void print(int level)
 	{
-		System.out.println("\tProperty: " + currentValue);
+		for (int i = 0; i < level; i++) System.out.print(" |   ");
+		System.out.println("> (" + getName() + " : " + currentValue + ")");
 	}
 	
 }

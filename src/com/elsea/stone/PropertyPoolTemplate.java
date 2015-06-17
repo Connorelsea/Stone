@@ -4,60 +4,59 @@ import java.util.Stack;
 
 public class PropertyPoolTemplate
 {
-	private Stack<PropertyGroup> groups;
-	private PropertyGroup head;
+	private PropertyGroup parent;
+	private Stack<PropertyGroup> history;
 	
 	public PropertyPoolTemplate()
 	{
-		groups = new Stack<PropertyGroup>();
+		history = new Stack<PropertyGroup>();
+		
+		parent = new PropertyGroup();
+		parent.setName("parent");
+		
+		history.push(parent);
 	}
 	
-	/**
-	 * Start a new group nested under the current group. If there is no current group,
-	 * a central parent group will be created and all children groups will  be  nested
-	 * within in.
-	 * 
-	 * @param name The name of the group to be created
-	 */
 	public PropertyPoolTemplate group(String name)
 	{
-		if (groups.size() == 0)
-		{
-			PropertyGroup group = new PropertyGroup();
-			group.setName("Central Parent Group");
-			groups.push(group);
-		}
-		
-		// need to address parent groups
-		
-		PropertyGroup group = new PropertyGroup();
-		group.setName(name);
-		groups.push(group);
-		
+		_addGroup(name, parent);
 		return this;
+	}
+	
+	private void _addGroup(PropertyGroup group, PropertyGroup to)
+	{
+		history.peek().addChild(group);
+		history.push(group);
+	}
+	
+	private void _addGroup(String ofName, PropertyGroup to)
+	{
+		PropertyGroup group = new PropertyGroup();
+		group.setName(ofName);
+		_addGroup(group, to);
 	}
 	
 	public PropertyPoolTemplate end()
 	{
-		int size = groups.size();
+		history.pop();
+		return this;
+	}
+	
+	public PropertyPoolTemplate property(String name, String value)
+	{
+		Property property = new Property();
+		property.setName(name);
+		property.setDefaultValue(value);
+		property.setCurrentValue(value);
 		
-		if (size == 0)
-		{
-			System.err.println("Error: Cannot use end. No groups have been created.");
-		}
-		
+		history.peek().addChild(property);
 		
 		return this;
 	}
 	
-	public PropertyPoolTemplate showStack()
+	public void show()
 	{
-		for (int i = groups.size() - 1; i >= 0; i--)
-		{
-			System.out.println(i + ". " + groups.get(i).getName());
-		}
-		
-		return this;
+		parent.print(0);
 	}
 	
 }

@@ -6,27 +6,27 @@ import java.util.stream.Collectors;
 
 public class PropertyGroup extends PropertyElement
 {
-	private List<PropertyElement> elements;
+	private List<PropertyElement> children;
 	
 	public PropertyGroup()
 	{
-		elements = new ArrayList<PropertyElement>();
+		children = new ArrayList<PropertyElement>();
 		setEmpty(true);
 	}
 	
-	public void addElement(PropertyElement element)
+	public void addChild(PropertyElement element)
 	{
-		elements.add(element);
+		children.add(element);
 	}
 	
-	public void removeElement(PropertyElement element)
+	public void removeChild(PropertyElement element)
 	{
-		elements.remove(element);
+		children.remove(element);
 	}
 	
 	public List<PropertyElement> getChildrenOfName(String name)
 	{
-		return elements.stream()
+		return children.stream()
 			.filter(e -> e.getName().equals(name))
 			.collect(Collectors.toList());
 	}
@@ -38,36 +38,37 @@ public class PropertyGroup extends PropertyElement
 	
 	public boolean hasChildGroups()
 	{
-		if (elements.size() > 0 || getChildGroups().size() > 0) return false;
+		if (children.size() > 0 || getChildGroups().size() > 0) return false;
 		else return true;
 	}
 	
 	public List<PropertyElement> getChildGroups()
 	{
-		return elements.stream()
+		return children.stream()
 			.filter(e -> e instanceof PropertyGroup)
 			.collect(Collectors.toList());
 	}
 	
 	public List<PropertyElement> getChildProperties()
 	{
-		return elements.stream()
+		return children.stream()
 			.filter(e -> e instanceof Property)
 			.collect(Collectors.toList());
 	}
 	
 	public List<PropertyElement> getChildren()
 	{
-		return elements;
+		return children;
 	}
 	
-	public void print()
+	public void print(int level)
 	{
+		for (int i = 0; i < level; i++) System.out.print(" |   ");
 		System.out.println("Group: " + getName());
 		
-		for (PropertyElement element : elements)
+		for (PropertyElement element : children)
 		{
-			element.print();
+			element.print(level + 1);
 		}
 	}
 }

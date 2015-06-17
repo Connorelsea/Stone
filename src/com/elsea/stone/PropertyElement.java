@@ -25,9 +25,6 @@ public abstract class PropertyElement
 		this.empty = empty;
 	}
 	
-	public void print()
-	{
-		System.out.println(name);
-	}
+	public abstract void print(int level);
 	
 }
