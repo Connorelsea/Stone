@@ -5,16 +5,16 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.elsea.stone.property.PropertyPoolTemplate;
+import com.elsea.stone.property.PropertyPool;
 
 public class TemplatingTest {
 	
-	private PropertyPoolTemplate p;
+	private PropertyPool p;
 
 	@Before
 	public void setUp()
 	{
-		p = new PropertyPoolTemplate();
+		p = new PropertyPool();
 	}
 	
 	@Test

@@ -4,14 +4,33 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * PropertyGroup.java
+ * 
+ * A PropertyGroup is a container that can contain other PropertyGroups or
+ * Property objects.
+ * 
+ * @author Connor M. Elsea
+ */
 public class PropertyGroup extends PropertyElement
 {
 	private List<PropertyElement> children;
+	private PropertyGroup parent;
 	
 	public PropertyGroup()
 	{
 		children = new ArrayList<PropertyElement>();
 		setEmpty(true);
+	}
+	
+	public void setParent(PropertyGroup parent)
+	{
+		this.parent = parent;
+	}
+	
+	public PropertyGroup getParent()
+	{
+		return parent;
 	}
 	
 	public void addChild(PropertyElement element)

@@ -5,9 +5,7 @@ package com.elsea.stone.property;
  * Property.java
  * 
  * A Property is a container holding information about a  property  such as
- * its name, current value, default value,  and  type.  Types  help  relate
- * properties, which is useful for querying the Property Pool and returning
- * an array of all Properties of a certain type.
+ * its name, current value, default value.
  * 
  * @author Connor M. Elsea
  */

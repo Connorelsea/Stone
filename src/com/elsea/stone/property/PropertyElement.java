@@ -1,5 +1,13 @@
 package com.elsea.stone.property;
 
+/**
+ * PropertyElement.java
+ * 
+ * An abstract representation of a data container that can either contain
+ * other data containers or property data.
+ * 
+ * @author Connor M. Elsea
+ */
 public abstract class PropertyElement
 {
 	private String name;
@@ -26,5 +34,10 @@ public abstract class PropertyElement
 	}
 	
 	public abstract void print(int level);
+	
+	public void print()
+	{
+		print(0);
+	}
 	
 }
