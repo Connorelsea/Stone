@@ -70,6 +70,7 @@ public class PropertyPool
 	 */
 	private void _addGroup(PropertyGroup group, PropertyGroup to)
 	{
+		group.setParent(history.peek());
 		history.peek().addChild(group);
 		history.push(group);
 	}
