@@ -4,21 +4,8 @@ Stone is a concise yet powerful preferences library for Java that handles, loads
 
 | Stone Code | Generated XML |
 |------------|---------------|
-|```		PropertyPool pool = new PropertyPool();
-		
-		pool
-			.group("settings")
-				.group("user")
-					.property("name", "John A. Smith")
-					.property("age", "25")
-				.end()
-				.group("paths")
-					.property("save", "C:\\user\\pictures")
-				.end()
-			.end();
-		
-		PropertyPoolWriter writer = new PropertyPoolWriter();
-		writer.write(pool, file);``` | ```<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+| ```
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <DOC_DIRECT_CHILD>
     <parent>
         <software>
@@ -57,4 +44,5 @@ Stone is a concise yet powerful preferences library for Java that handles, loads
         </user>
     </parent>
 </DOC_DIRECT_CHILD>
-		```
+```
+| test
