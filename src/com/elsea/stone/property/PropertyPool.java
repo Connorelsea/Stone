@@ -2,6 +2,13 @@ package com.elsea.stone.property;
 
 import java.util.Stack;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 /**
  * PropertyPoolTemplate
  * 
@@ -148,6 +155,48 @@ public class PropertyPool
 	}
 	
 	/**
+	 * Creates a new XML document from the Property Poo's structure and content.
+	 * 
+	 * @return An XML document representing the Property Pool
+	 */
+	public Document toXMLDocument()
+	{
+		try
+		{
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			
+			Document doc = builder.newDocument();
+			
+			/* Get the base parent group */
+			PropertyGroup parentGroup = getParent();
+			
+			/* Create XML element for the parent group and append it to the XML document */
+			Element parent = doc.createElement("DOC_DIRECT_CHILD");
+			doc.appendChild(parent);
+			
+			/* Start chain reaction of writing functions */
+			parentGroup.write(doc, parent);
+			
+			return doc;
+			
+//			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+//			Transformer transformer = transformerFactory.newTransformer();
+//			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+//			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+//			
+//			DOMSource source = new DOMSource(doc);
+//			StreamResult result = new StreamResult(System.out);
+//			transformer.transform(source, result);
+		}
+		catch (ParserConfigurationException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
 	 * Visualizes and prints the structure currently held by the Property Pool.
 	 */
 	public void show()
@@ -155,6 +204,11 @@ public class PropertyPool
 		parent.print(0);
 	}
 	
+	/**
+	 * Returns the parent object at the top of the property pool
+	 * 
+	 * @return the parent object at the top of the property pool
+	 */
 	public PropertyGroup getParent()
 	{
 		return parent;
