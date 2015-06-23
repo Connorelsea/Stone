@@ -30,4 +30,4 @@ p
 ```
 
 ## Under The Hood: Design
-Data for the programmer is represented using the Property, PropertyElement, PropertyGroup, and PropertyPool classes. Under the hood, Stone stores the data on your system as XML. This makes the saving format fairly universal and easily transferable. Comparable Java code that is creating, reading, and handling pure XML data using Java's built in XML libraries would take hundreds more lines of code than what is seen below. Stone makes sure your data is formatted correctly for the purpose at hand: settings and property storage.
+Data for the programmer is represented using the Property, PropertyElement, PropertyGroup, and PropertyPool classes. Under the hood, Stone stores the data on your system as XML. This makes the saving format fairly universal and easily transferable. Comparable Java code that is creating, reading, and handling pure XML data using Java's built in XML libraries would take hundreds more lines than the code seen above. Stone makes sure your data is formatted correctly for the purpose at hand: settings and property storage.

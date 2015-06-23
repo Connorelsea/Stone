@@ -179,15 +179,6 @@ public class PropertyPool
 			parentGroup.write(doc, parent);
 			
 			return doc;
-			
-//			TransformerFactory transformerFactory = TransformerFactory.newInstance();
-//			Transformer transformer = transformerFactory.newTransformer();
-//			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-//			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-//			
-//			DOMSource source = new DOMSource(doc);
-//			StreamResult result = new StreamResult(System.out);
-//			transformer.transform(source, result);
 		}
 		catch (ParserConfigurationException e)
 		{
