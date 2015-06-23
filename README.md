@@ -4,45 +4,20 @@ Stone is a concise yet powerful preferences library for Java that handles, loads
 
 | Stone Code | Generated XML |
 |------------|---------------|
-| ```
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<DOC_DIRECT_CHILD>
-    <parent>
-        <software>
-            <Name>
-                <current>Software</current>
-                <default>Software</default>
-            </Name>
-            <behavior>
-                <Close>
-                    <current>EXIT_ON_CLOSE</current>
-                    <default>EXIT_ON_CLOSE</default>
-                </Close>
-                <Open>
-                    <current>OPEN_MAIN_MODERN</current>
-                    <default>OPEN_MAIN_MODERN</default>
-                </Open>
-            </behavior>
-            <paths>
-                <SaveLocation>
-                    <current>NO_DEFAULT</current>
-                    <default>NO_DEFAULT</default>
-                </SaveLocation>
-            </paths>
-        </software>
-        <user>
-            <info>
-                <Name>
-                    <current>NULL</current>
-                    <default>NULL</default>
-                </Name>
-                <Age>
-                    <current>NULL</current>
-                    <default>NULL</default>
-                </Age>
-            </info>
-        </user>
-    </parent>
-</DOC_DIRECT_CHILD>
-```
-| test
+| `p` | `` |
+| `	.group("software")` | `` |
+| `		.property("Name", "Software")` | `` |
+| `		.group("behavior")` | `` |
+| `			.property("Close", "EXIT_ON_CLOSE")` | `` |
+| `			.property("Open",  "OPEN_MAIN_MODERN")` | `` |
+| `		.end()` | `` |
+| `		.group("paths")` | `` |
+| `			.property("SaveLocation", "NO_DEFAULT")` | `` |
+| `		.end()` | `` |
+| `	.end()` | `` |
+| `	.group("user")` | `` |
+| `		.group("info")` | `` |
+| `			.property("Name", "NULL")` | `` |
+| `			.property("Age", "NULL")` | `` |
+| `		.end()` | `` |
+| `	.end()` | `` |
