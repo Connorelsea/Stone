@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 /**
  * PropertyGroup.java
  * 
@@ -92,5 +95,18 @@ public class PropertyGroup extends PropertyElement
 		{
 			element.print(level + 1);
 		}
+	}
+
+	@Override
+	public void write(Document doc, Element parent)
+	{
+		
+		Element group = doc.createElement(getName());
+		parent.appendChild(group);
+		
+		children.stream()
+			.forEach(child -> {
+				child.write(doc, group);
+			});
 	}
 }

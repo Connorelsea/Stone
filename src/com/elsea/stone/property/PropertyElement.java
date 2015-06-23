@@ -1,5 +1,7 @@
 package com.elsea.stone.property;
 
+import org.w3c.dom.*;
+
 /**
  * PropertyElement.java
  * 
@@ -39,5 +41,7 @@ public abstract class PropertyElement
 	{
 		print(0);
 	}
+
+	public abstract void write(Document doc, Element parent);
 	
 }

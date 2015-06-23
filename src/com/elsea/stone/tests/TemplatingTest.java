@@ -5,7 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.elsea.stone.property.PropertyGroup;
 import com.elsea.stone.property.PropertyPool;
+import com.elsea.stone.property.PropertyPoolXML;
 
 public class TemplatingTest {
 	
@@ -48,6 +50,9 @@ public class TemplatingTest {
 			.show();
 		
 		assertEquals("Parent element exists", "parent", p.getParent().getName());
+		
+		PropertyPoolXML ppxml = new PropertyPoolXML();
+		ppxml.create(p);
 	}
 
 }

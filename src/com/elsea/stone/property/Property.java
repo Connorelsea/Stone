@@ -1,5 +1,7 @@
 package com.elsea.stone.property;
 
+import org.w3c.dom.*;
+
 
 /**
  * Property.java
@@ -44,6 +46,22 @@ public class Property extends PropertyElement
 	{
 		for (int i = 0; i < level; i++) System.out.print("|     ");
 		System.out.println("> (" + getName() + " : " + currentValue + ")");
+	}
+
+	@Override
+	public void write(Document doc, Element parent)
+	{
+		Element prop        = doc.createElement(getName());
+		Element currentProp = doc.createElement("current");
+		Element defaultProp = doc.createElement("default");
+		
+		currentProp.appendChild(doc.createTextNode(currentValue));
+		defaultProp.appendChild(doc.createTextNode(defaultValue));
+		
+		prop.appendChild(currentProp);
+		prop.appendChild(defaultProp);
+
+		parent.appendChild(prop);
 	}
 	
 }
