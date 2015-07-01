@@ -55,12 +55,20 @@ public class Property extends PropertyElement
 		Element currentProp = doc.createElement("current");
 		Element defaultProp = doc.createElement("default");
 		
+		// Create child nodes for values
 		currentProp.appendChild(doc.createTextNode(currentValue));
 		defaultProp.appendChild(doc.createTextNode(defaultValue));
 		
+		// Append child nodes to parent property node
 		prop.appendChild(currentProp);
 		prop.appendChild(defaultProp);
+		
+		// Set group attribute of parent property node to false
+		Attr attr = doc.createAttribute("group");
+		attr.setValue("false");
+		prop.setAttributeNode(attr);
 
+		// Append the newly created node to its specified parent
 		parent.appendChild(prop);
 	}
 	

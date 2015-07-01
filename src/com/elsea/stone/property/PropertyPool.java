@@ -5,6 +5,11 @@ import java.util.Stack;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -155,6 +160,17 @@ public class PropertyPool
 	}
 	
 	/**
+	 * 
+	 * @param object
+	 * @return
+	 */
+	public PropertyPool object(SerializableProperty object)
+	{
+		object.toProperty(this);
+		return this;
+	}
+	
+	/**
 	 * Creates a new XML document from the Property Poo's structure and content.
 	 * 
 	 * @return An XML document representing the Property Pool
@@ -193,6 +209,31 @@ public class PropertyPool
 	public void show()
 	{
 		parent.print(0);
+	}
+	
+	/**
+	 * Converts the Property Pool to XML and prints it to standard out
+	 */
+	public void showXML()
+	{
+		try
+		{
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+			
+			Document doc = toXMLDocument();
+			DOMSource source = new DOMSource(doc);
+			StreamResult result = new StreamResult(System.out);
+	 
+			transformer.transform(source, result);
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 	
 	/**

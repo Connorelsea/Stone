@@ -5,6 +5,8 @@ import java.io.File;
 import javax.xml.parsers.*;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class PropertyPoolReader {
 	
@@ -19,7 +21,11 @@ public class PropertyPoolReader {
 			Document doc = builder.parse(file);
 			doc.getDocumentElement().normalize();
 			
-			result = parse(doc);
+			PropertyPool pool = new PropertyPool();
+			NodeList list 	  = doc.getChildNodes();
+			
+			// Parse, setting parent as the first node
+			result = parse(doc, list.item(0));
 			
 			return true;
 		}
@@ -30,8 +36,18 @@ public class PropertyPoolReader {
 		}
 	}
 	
-	public PropertyPool parse(Document doc)
-	{	
+	public PropertyPool parse(Document doc, Node parent)
+	{
+		if (parent.hasChildNodes())
+		{
+			NodeList list = parent.getChildNodes();
+			
+			for (int i = 0; i < list.getLength(); i++)
+			{
+				
+			}
+		}
+		
 		return null;
 	}
 	

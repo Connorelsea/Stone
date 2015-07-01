@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -104,9 +105,13 @@ public class PropertyGroup extends PropertyElement
 		Element group = doc.createElement(getName());
 		parent.appendChild(group);
 		
+		// Set group attribute of parent group node to true
+		Attr attr = doc.createAttribute("group");
+		attr.setValue("true");
+		group.setAttributeNode(attr);
+		
+		// Write all children
 		children.stream()
-			.forEach(child -> {
-				child.write(doc, group);
-			});
+			.forEach(child -> child.write(doc, group));
 	}
 }
