@@ -48,8 +48,6 @@ public class TemplatingTest {
 		
 		p.showXML();
 		
-		
-		
 	}
 	
 	@Test

@@ -160,6 +160,27 @@ public class PropertyPool
 	}
 	
 	/**
+	 * Same as the property method with two arguments except this allows you to set the
+	 * default and current values as different values.
+	 * 
+	 * @param name
+	 * @param defaultValue
+	 * @param currentValue
+	 * @return
+	 */
+	public PropertyPool property(String name, String defaultValue, String currentValue)
+	{
+		Property property = new Property();
+		property.setName(name);
+		property.setDefaultValue(defaultValue);
+		property.setCurrentValue(currentValue);
+		
+		history.peek().addChild(property);
+		
+		return this;
+	}
+	
+	/**
 	 * 
 	 * @param object
 	 * @return
@@ -188,11 +209,12 @@ public class PropertyPool
 			PropertyGroup parentGroup = getParent();
 			
 			/* Create XML element for the parent group and append it to the XML document */
-			Element parent = doc.createElement("DOC_DIRECT_CHILD");
-			doc.appendChild(parent);
+			//Element parent = doc.createElement("DOC_DIRECT_CHILD");
+			//doc.appendChild(parent);
 			
 			/* Start chain reaction of writing functions */
-			parentGroup.write(doc, parent);
+			
+			parentGroup.write(doc, null);
 			
 			return doc;
 		}

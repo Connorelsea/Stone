@@ -101,9 +101,27 @@ public class PropertyGroup extends PropertyElement
 	@Override
 	public void write(Document doc, Element parent)
 	{
-		
 		Element group = doc.createElement(getName());
-		parent.appendChild(group);
+		
+		/**
+		 * If this element has no parent and is a group, it is assumed that it is  the
+		 * singular parent element for the entire group and is added as a child of the
+		 * document itself. If this element's name is not "parent" then a  warning  is
+		 * shown in the console.
+		 */
+		if (parent == null)
+		{
+			doc.appendChild(group);
+			
+			if (!getName().equals("parent"))
+			{
+				System.err.println("Warning: Second parameter null causes direct add to document. Only intended for parent group.");
+			}
+		}
+		else
+		{
+			parent.appendChild(group);
+		}
 		
 		// Set group attribute of parent group node to true
 		Attr attr = doc.createAttribute("group");
