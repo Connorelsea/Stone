@@ -8,6 +8,12 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 
+/**
+ * Writes the a Property Pool, formatted as XML, to the file system.
+ * 
+ * @author Connor M. Elsea
+ *
+ */
 public class PropertyPoolWriter {
 
 	public boolean write(Document doc, File to)
