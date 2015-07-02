@@ -181,17 +181,6 @@ public class PropertyPool
 	}
 	
 	/**
-	 * 
-	 * @param object
-	 * @return
-	 */
-	public PropertyPool object(SerializableProperty object)
-	{
-		object.toProperty(this);
-		return this;
-	}
-	
-	/**
 	 * Creates a new XML document from the Property Poo's structure and content.
 	 * 
 	 * @return An XML document representing the Property Pool

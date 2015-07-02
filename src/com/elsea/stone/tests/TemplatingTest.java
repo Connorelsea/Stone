@@ -50,20 +50,4 @@ public class TemplatingTest {
 		
 	}
 	
-	@Test
-	public void testObjectTemplate()
-	{
-		System.out.println("PROPERTY TEST WITH OBJECTS");
-		
-		p = new PropertyPool();
-		
-		p
-			.group("objects")
-				.object(new ExampleObject("Leopold", "Marx"))
-				.object(new ExampleObject("Connor", "Elsea"))
-			.end()
-			
-			.show();
-	}
-
 }

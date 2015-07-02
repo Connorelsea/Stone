@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<parent group="true">
+    <software group="true">
+        <Name group="false">
+            <current>Software</current>
+            <default>Software</default>
+        </Name>
+        <behavior group="true">
+            <Close group="false">
+                <current>EXIT_ON_CLOSE</current>
+                <default>EXIT_ON_CLOSE</default>
+            </Close>
+        </behavior>
+    </software>
+</parent>
