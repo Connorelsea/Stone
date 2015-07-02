@@ -79,13 +79,20 @@ public class PropertyPoolReader {
 				
 				if (current.getNodeType() == Node.ELEMENT_NODE)
 				{
+					// Check group attribute, determine if node is a group
 					Node attr = current.getAttributes().item(0);
 					boolean group = attr.getNodeName().equals("group") && attr.getNodeValue().equals("true");
+					
+					// Check type attribute, determine type of node
+					Node typeAttr = current.getAttributes().item(1);
+					String type = typeAttr.getNodeValue();
 					
 					// If the current node should be a PropertyGroup
 					if (group)
 					{
 						pool.group(current.getNodeName());
+						if (type != null) pool.type(type);
+						else pool.type("");
 						parse(pool, current);
 						pool.end();
 					}
@@ -121,7 +128,9 @@ public class PropertyPoolReader {
 						if (currentNode != null) currentValue = currentNode.getChildNodes().item(0).getNodeValue();
 						
 						pool.property(nodeName, defaultValue, currentValue);
+						if (type != null) pool.type(type);
 					}
+					
 				}
 				
 			}

@@ -26,6 +26,7 @@ public class PropertyPool
 	private PropertyGroup        parent;
 	private Stack<PropertyGroup> history;
 	private PropertyPoolSearch   search;
+	private PropertyElement      recent;
 	
 	/**
 	 * Creates a new Property Pool object and  performs  the  initial  set  up.
@@ -99,6 +100,8 @@ public class PropertyPool
 	{
 		PropertyGroup group = new PropertyGroup();
 		group.setName(ofName);
+		recent = group;
+		
 		_addGroup(group, to);
 	}
 	
@@ -149,13 +152,7 @@ public class PropertyPool
 	 */
 	public PropertyPool property(String name, String value)
 	{
-		Property property = new Property();
-		property.setName(name);
-		property.setDefaultValue(value);
-		property.setCurrentValue(value);
-		
-		history.peek().addChild(property);
-		
+		property(name, value, value);
 		return this;
 	}
 	
@@ -174,9 +171,16 @@ public class PropertyPool
 		property.setName(name);
 		property.setDefaultValue(defaultValue);
 		property.setCurrentValue(currentValue);
+		recent = property;
 		
 		history.peek().addChild(property);
 		
+		return this;
+	}
+	
+	public PropertyPool type(String typeName)
+	{
+		recent.setType(typeName);
 		return this;
 	}
 	
@@ -256,6 +260,7 @@ public class PropertyPool
 	public PropertyPoolSearch search()
 	{
 		if (search == null) search = new PropertyPoolSearch(this);
+		System.out.println("Beginning search");
 		return search;
 	}
 	
@@ -267,6 +272,11 @@ public class PropertyPool
 	public PropertyGroup getParent()
 	{
 		return parent;
+	}
+	
+	public PropertyElement getRecent()
+	{
+		return recent;
 	}
 	
 }

@@ -23,8 +23,8 @@ public class ImplementationTest {
 			
 			pool
 				.group("user")
-					.property("firstName", "connor")
-					.property("lastName",  "elsea")
+					.property("firstName", "connor").type("name")
+					.property("lastName",  "elsea").type("name")
 					.property("user", "second")
 				.end()
 				.group("path")
@@ -54,13 +54,27 @@ public class ImplementationTest {
 			System.out.println("[Read Pool]");
 			pool.show();
 			
-			System.out.println("[Searching]");
+			System.out.println("[Searching For Name=User]");
 			
-			ArrayList<PropertyElement> props = pool.search()
-				.filter(p -> p.getName().equals("user"));
+			int searchType = 1;
 			
-			props.stream()
-				.forEach(p -> System.out.println("Found: " + p.getName()));
+			if (searchType == 0)
+			{
+				ArrayList<PropertyElement> props = pool.search()
+						.filter(p -> p.getName().equals("user"));
+					
+				props.stream()
+					.forEach(p -> System.out.println("Found: " + p.getName()));
+			}
+			else if (searchType == 1)
+			{
+				ArrayList<PropertyElement> props = pool.search()
+						.filter(p -> p.getType().equals("name"));
+					
+				props.stream()
+					.forEach(p -> System.out.println("Found: " + p.getName()));
+			}
+			
 		}
 	}
 	

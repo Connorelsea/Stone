@@ -100,7 +100,7 @@ public class PropertyGroup extends PropertyElement
 			if (i < level - 1) System.out.print("|     ");
 			else System.out.print("|     ");
 		}
-		System.out.println("Group: " + getName());
+		System.out.println("Group: " + getName() + " :: " + getType());
 		
 		for (PropertyElement element : children)
 		{
@@ -137,6 +137,11 @@ public class PropertyGroup extends PropertyElement
 		Attr attr = doc.createAttribute("group");
 		attr.setValue("true");
 		group.setAttributeNode(attr);
+		
+		// Set group type attribute
+		Attr attrType = doc.createAttribute("type");
+		attrType.setValue(getType());
+		group.setAttributeNode(attrType);
 		
 		// Write all children
 		children.stream()

@@ -45,7 +45,7 @@ public class Property extends PropertyElement
 	public void print(int level)
 	{
 		for (int i = 0; i < level; i++) System.out.print("|     ");
-		System.out.println("> (" + getName() + " : " + currentValue + ")");
+		System.out.println("> (" + getName() + " -> " + currentValue + ") :: " + getType());
 	}
 
 	@Override
@@ -67,6 +67,11 @@ public class Property extends PropertyElement
 		Attr attr = doc.createAttribute("group");
 		attr.setValue("false");
 		prop.setAttributeNode(attr);
+		
+		// Set type attribute
+		Attr attrType = doc.createAttribute("type");
+		attrType.setValue(getType());
+		prop.setAttributeNode(attrType);
 
 		// Append the newly created node to its specified parent
 		parent.appendChild(prop);

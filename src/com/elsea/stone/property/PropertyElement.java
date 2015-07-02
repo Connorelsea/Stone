@@ -31,6 +31,7 @@ public abstract class PropertyElement
 	}
 	
 	public String getType() {
+		if (type == null) return " ";
 		return type;
 	}
 	
