@@ -12,7 +12,6 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 /**
  * PropertyPoolTemplate
@@ -24,8 +23,9 @@ import org.w3c.dom.Element;
  */
 public class PropertyPool
 {
-	private PropertyGroup parent;
+	private PropertyGroup        parent;
 	private Stack<PropertyGroup> history;
+	private PropertyPoolSearch   search;
 	
 	/**
 	 * Creates a new Property Pool object and  performs  the  initial  set  up.
@@ -41,7 +41,7 @@ public class PropertyPool
 	{
 		history = new Stack<PropertyGroup>();
 		
-		parent = new PropertyGroup();
+		parent  = new PropertyGroup();
 		parent.setName("parent");
 		
 		history.push(parent);
@@ -190,7 +190,7 @@ public class PropertyPool
 		try
 		{
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = factory.newDocumentBuilder();
+			DocumentBuilder builder        = factory.newDocumentBuilder();
 			
 			Document doc = builder.newDocument();
 			
@@ -205,7 +205,7 @@ public class PropertyPool
 			
 			parentGroup.write(doc, null);
 			
-			return doc;
+			return doc;	
 		}
 		catch (ParserConfigurationException e)
 		{
@@ -235,8 +235,8 @@ public class PropertyPool
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			
-			Document doc = toXMLDocument();
-			DOMSource source = new DOMSource(doc);
+			Document doc        = toXMLDocument();
+			DOMSource source    = new DOMSource(doc);
 			StreamResult result = new StreamResult(System.out);
 	 
 			transformer.transform(source, result);
@@ -245,6 +245,18 @@ public class PropertyPool
 		{
 			ex.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Provides a stream like class for traversing and searching the contents
+	 * of the Property Pool.
+	 * 
+	 * @return A Property Pool Search object
+	 */
+	public PropertyPoolSearch search()
+	{
+		if (search == null) search = new PropertyPoolSearch(this);
+		return search;
 	}
 	
 	/**

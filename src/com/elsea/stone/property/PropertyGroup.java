@@ -37,6 +37,11 @@ public class PropertyGroup extends PropertyElement
 		return parent;
 	}
 	
+	public int getSize()
+	{
+		return children.size();
+	}
+	
 	public void addChild(PropertyElement element)
 	{
 		children.add(element);
@@ -45,6 +50,11 @@ public class PropertyGroup extends PropertyElement
 	public void removeChild(PropertyElement element)
 	{
 		children.remove(element);
+	}
+	
+	public PropertyElement getChildAt(int index)
+	{
+		return children.get(index);
 	}
 	
 	public List<PropertyElement> getChildrenOfName(String name)

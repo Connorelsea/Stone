@@ -13,6 +13,7 @@ import org.w3c.dom.*;
 public abstract class PropertyElement
 {
 	private String name;
+	private String type;
 	private boolean empty;
 	
 	public String getName()
@@ -23,6 +24,14 @@ public abstract class PropertyElement
 	public void setName(String name)
 	{
 		this.name = name;
+	}
+	
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	public String getType() {
+		return type;
 	}
 	
 	public boolean isEmpty()
