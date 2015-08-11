@@ -94,6 +94,11 @@ public class PropertyGroup extends PropertyElement
 		return children;
 	}
 	
+	public void show()
+	{
+		print(0);
+	}
+	
 	public void print(int level)
 	{
 		for (int i = 0; i < level; i++) {
