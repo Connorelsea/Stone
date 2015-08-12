@@ -2,6 +2,7 @@ package com.elsea.stone.groups;
 
 public class Group extends Element
 {
+	private GroupSearch search;
 	
 	public Group(String name, Group parent)
 	{
@@ -26,6 +27,17 @@ public class Group extends Element
 	 * to apply ID commands to.
 	 */
 	private Property recent;
+	
+	/**
+	 * Returns a Group Search object that allows the group
+	 * to be traversed and searched.
+	 * 
+	 * @return A Group Search object
+	 */
+	public GroupSearch search()
+	{
+		return (search == null) ? (search = new GroupSearch(this)) : search;
+	}
 	
 	/**
 	 * Creates a new group as a child of  the current  group and

@@ -62,9 +62,10 @@ public class Element
 	 */
 	protected void print(int level, int spaces)
 	{
+		spaces(level);
+		
 		if (this instanceof Group)
 		{
-			spaces(level);
 			System.out.printf("|--> Group::%s ", name);
 			
 			if (id != null && !id.equalsIgnoreCase("null"))
@@ -92,7 +93,6 @@ public class Element
 		}
 		else
 		{
-			spaces(level);
 			System.out.printf("|> Property::%s", name);
 			
 			int width = spaces - this.getName().length();

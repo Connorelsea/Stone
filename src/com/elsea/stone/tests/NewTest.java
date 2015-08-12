@@ -14,29 +14,22 @@ public class NewTest {
 		
 		g
 			.group("locations")
-				.property("createdBy", "username")
+				
 				.group("location").id("systemGenerated")
 					.property("name", "Pictures")
 					.property("path", "C:\\Pictures")
 					.property("default", "true")
 				.end()
-				.group("location")
-					.property("name", "Documents")
-					.property("path", "C:\\Documents")
-					.property("default", "false")
-				.end()
+				
 			.end()
+			
 			.group("userinfo")
 				.property("username", "connorelsea")
-				.property("firstName", "Connor")
-				.property("lastName", "Elsea")
-				.property("pass", "aEr4%fGt86c")
-				.property("birthday", "10.28.97")
+				.property("first", "Connor")
+				.property("last", "Elsea")
 			.end();
 		
 		g.show();
-				
-		
 	}
 
 }
