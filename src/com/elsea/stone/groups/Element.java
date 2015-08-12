@@ -50,7 +50,7 @@ public class Element
 	 */
 	public void show()
 	{
-		print(0);
+		print(0, 0);
 	}
 	
 	/**
@@ -60,22 +60,52 @@ public class Element
 	 * 
 	 * @param level The level of indentation to begin at
 	 */
-	protected void print(int level)
+	protected void print(int level, int spaces)
 	{
 		if (this instanceof Group)
 		{
 			spaces(level);
-			System.out.printf("|--> Group ( name:\"%s\" , id:\"%s\" )\n", name, id);
+			System.out.printf("|--> Group::%s ", name);
+			
+			if (id != null && !id.equalsIgnoreCase("null"))
+				System.out.printf("#%s", id);
+			
+			System.out.println();
 			
 			if (this.hasChildren())
 			{
-				for (Element e : children) e.print(level + 1);
+				int longest = 0;
+				
+				// Determine longest child name to align equals operators
+				
+				for (Element e : children)
+				{
+					if (e.name.length() > longest) longest = e.name.length();
+				}
+				
+				// Print all children
+				
+				for (Element e : children) {
+					e.print(level + 1, longest);
+				}
 			}
 		}
 		else
 		{
 			spaces(level);
-			System.out.printf("|--> (name:\"%s\", id:\"%s\")\n", name, id);
+			System.out.printf("|> Property::%s", name);
+			
+			int width = spaces - this.getName().length();
+			
+			if (id != null && !id.equalsIgnoreCase("null"))
+				System.out.printf("#%s", id);
+			
+			// Print calculated spaces to align equals operators
+			for (int i = 0; i < width; i++) System.out.print(" ");
+			
+			System.out.printf(" = \"%s\" \n", currentValue, defaultValue);
+			
+			
 		}
 		
 	}
