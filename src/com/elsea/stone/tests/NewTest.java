@@ -15,7 +15,10 @@ public class NewTest {
 		g
 			.group("locations").id("gid")
 				.property("test", "value").id("pid")
-				.property("test2", "value").id("pid")
+				.property("test2", "value").id("pid2")
+			.end()
+			.group("userinfo")
+				.property("username", "connor")
 			.end();
 		
 		g.show();

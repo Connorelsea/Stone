@@ -65,7 +65,7 @@ public class Element
 		if (this instanceof Group)
 		{
 			spaces(level);
-			System.out.printf("> Group ( name:\"%s\" , id:\"%s\" )\n", name, id);
+			System.out.printf("|--> Group ( name:\"%s\" , id:\"%s\" )\n", name, id);
 			
 			if (this.hasChildren())
 			{
@@ -75,14 +75,14 @@ public class Element
 		else
 		{
 			spaces(level);
-			System.out.printf(" |--> (name:\"%s\", id:\"%s\")\n", name, id);
+			System.out.printf("|--> (name:\"%s\", id:\"%s\")\n", name, id);
 		}
 		
 	}
 	
 	private void spaces(int level)
 	{
-		for (int i = 0; i < level; i++) System.out.print(" ");
+		for (int i = 0; i < level ; i++) System.out.print("    ");
 	}
 	
 	/**
@@ -176,7 +176,7 @@ public class Element
 	
 	public boolean hasChildren()
 	{
-		if (children != null && children.size() > 0) return false;
-		else return true;
+		if (children != null && children.size() > 0) return true;
+		else return false;
 	}
 }

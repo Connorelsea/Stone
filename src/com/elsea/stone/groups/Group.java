@@ -2,6 +2,7 @@ package com.elsea.stone.groups;
 
 public class Group extends Element
 {
+	
 	public Group(String name, Group parent)
 	{
 		super(name, null, parent);
@@ -18,6 +19,15 @@ public class Group extends Element
 	}
 	
 	/**
+	 * If this object is null, the most recently created
+	 * element was the group. If this object is not null,
+	 * the most recently created  object is  the current
+	 * group. This is used in identifying  which element
+	 * to apply ID commands to.
+	 */
+	private Property recent;
+	
+	/**
 	 * Creates a new group as a child of  the current  group and
 	 * returns the newly made child group, effectively switching
 	 * to the new child group during template creation.
@@ -28,6 +38,7 @@ public class Group extends Element
 	public Group group(String name)
 	{
 		Group group = new Group(name, this);
+		recent = null;
 		addChild(group);
 		return group;
 	}
@@ -44,6 +55,7 @@ public class Group extends Element
 	public Group property(String name, String value)
 	{
 		Property property = new Property(name, value, this);
+		recent = property;
 		addChild(property);
 		return this;
 	}
@@ -56,7 +68,9 @@ public class Group extends Element
 	 */
 	public Group id(String id)
 	{
-		setID(id);
+		if (recent == null) setID(id);
+		else recent.setID(id);
+		
 		return this;
 	}
 	
@@ -69,6 +83,8 @@ public class Group extends Element
 	 */
 	public Group end()
 	{
+		// Recent isn't used after group is done
+		recent = null;
 		return getParent();
 	}
 	
