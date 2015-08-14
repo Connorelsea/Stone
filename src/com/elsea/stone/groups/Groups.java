@@ -13,11 +13,17 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import com.elsea.stone.property.PropertyPool;
 
 public class Groups {
 	
 	private static Groups instance;
 	private Document document;
+	private Group result;
 	
 	private Groups() { }
 	
@@ -45,7 +51,7 @@ public class Groups {
 			document = builder.newDocument();
 			
 			// Create parent object
-			org.w3c.dom.Element currentElement = element(group);
+			org.w3c.dom.Element currentElement = toXMLElement(group);
 			
 			// Add top-most element directly to XML document
 			document.appendChild(currentElement);
@@ -63,7 +69,7 @@ public class Groups {
 	
 	protected void recursive_write(org.w3c.dom.Element parent, Element child)
 	{
-		org.w3c.dom.Element elem = element(child);
+		org.w3c.dom.Element elem = toXMLElement(child);
 		parent.appendChild(elem);
 		
 		if (child.hasChildren())
@@ -76,7 +82,7 @@ public class Groups {
 	 * @param element The Stone element to transform
 	 * @return        A Stone element transformed into an XML element
 	 */
-	protected org.w3c.dom.Element element(Element element)
+	protected org.w3c.dom.Element toXMLElement(Element element)
 	{
 		org.w3c.dom.Element e = null;
 		
@@ -164,6 +170,118 @@ public class Groups {
 		}
 		
 		return false;
+	}
+	
+	/**
+	 * Create a Group by parsing the contents of a Stone file.
+	 * 
+	 * @param from The Stone file
+	 * @return     The group created from the Stone file
+	 */
+	public Group read(File from)
+	{
+		try
+		{
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document doc = builder.parse(from);
+			doc.getDocumentElement().normalize();
+			
+			Node parent = doc.getChildNodes().item(0);
+			
+			Group parentGroup = toGroup(parent);
+			NodeList children = parent.getChildNodes();
+			
+			// Parse all children of parent
+			
+			for (int i = 0; i < children.getLength(); i++)
+			{
+				parse(parentGroup, children.item(i));
+			}
+			
+			return parentGroup;
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
+	 * A recurisve function used to create the Stone Group structure.
+	 * 
+	 * @param group The current parent group
+	 * @param node  The current node to draw data from
+	 */
+	private void parse(Group group, Node node)
+	{
+		String type = node.getNodeName();
+		
+		if (node.getNodeName().equals("group"))
+		{
+			Group createdGroup = toGroup(node);
+			group.addChild(createdGroup);
+			
+			// Parse all children of current group
+			
+			NodeList children = node.getChildNodes();
+			
+			for (int i = 0; i < children.getLength(); i++)
+			{
+				parse(createdGroup, children.item(i));
+			}
+		}
+		else if (node.getNodeName().equals("property"))
+		{
+			group.addChild(toProperty(node, group));
+		}
+	}
+	
+	/**
+	 * Uses a node and a Stone parent Group to create a Stone Property.
+	 * 
+	 * @param node   The node to draw data from
+	 * @param parent The intended parent of the new Property
+	 * @return       A Property with the information from this node
+	 */
+	private Property toProperty(Node node, Group parent)
+	{
+		NamedNodeMap nnm = node.getAttributes();
+		
+		// Anticipated node structure:  <property currentValue="" defaultValue="" id="" name=""/>
+		
+		String id   = nnm.item(2).getNodeValue();
+		String name = nnm.item(3).getNodeValue();
+		String cval = nnm.item(0).getNodeValue();
+		String dval = nnm.item(1).getNodeValue();
+		
+		Property p = new Property(name, cval, dval, parent);
+
+		if (!id.equals("")) p.id(id);
+		
+		return p;
+	}
+	
+	/**
+	 * Uses a node to create a Stone Group.
+	 * 
+	 * @param node The node to draw data from
+	 * @return     A Group with the information from this node
+	 */
+	private Group toGroup(Node node)
+	{
+		NamedNodeMap nnm = node.getAttributes();
+		
+		// Anticipated node structure: <group id="" name="">
+		
+		String id   = nnm.item(0).getNodeValue();
+		String name = nnm.item(1).getNodeValue();
+		
+		Group g = new Group(name);
+		if (!id.equals("")) g.id(id);
+		
+		return g;
 	}
 	
 }

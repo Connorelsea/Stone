@@ -8,6 +8,12 @@ public class Property extends Element
 		super(name, value, parent);
 	}
 	
+	public Property(String name, String curVal, String defVal, Group parent)
+	{
+		super(name, curVal, parent);
+		defaultValue(defVal);
+	}
+	
 	/**
 	 * Sets the current value of this property.
 	 * 

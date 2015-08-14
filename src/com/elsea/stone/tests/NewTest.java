@@ -1,11 +1,9 @@
 package com.elsea.stone.tests;
 
 import java.io.File;
-import java.util.List;
 
 import org.junit.Test;
 
-import com.elsea.stone.groups.Element;
 import com.elsea.stone.groups.Group;
 import com.elsea.stone.groups.Groups;
 import com.elsea.stone.groups.Property;
@@ -54,7 +52,17 @@ public class NewTest {
 		
 		Groups.get().write(g).show();
 		
-		Groups.get().write(g).to(new File("C:\\Users\\connorelsea\\Desktop\\test.xml"));
+		File file = new File("C:\\Users\\connorelsea\\Desktop\\test.xml");
+		
+		Groups.get().write(g).to(file);
+		
+		Group groupRead = Groups.get().read(file);
+		
+		System.out.println("ORIGINAL");
+		g.show();
+		
+		System.out.println("NEW");
+		groupRead.show();
 	}
 
 }
