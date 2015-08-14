@@ -34,7 +34,7 @@ public class NewTest {
 		
 		System.out.println(g.search().property("username").getName());
 		
-		Groups.get().write(g);
+		Groups.get().write(g).show();
 	}
 
 }

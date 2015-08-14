@@ -18,7 +18,6 @@ public class Groups {
 	
 	private static Groups instance;
 	private Document document;
-	private org.w3c.dom.Element currentElement;
 	
 	private Groups() { }
 	
@@ -38,7 +37,7 @@ public class Groups {
 			document = builder.newDocument();
 			
 			// Create parent object
-			currentElement = element(group);
+			org.w3c.dom.Element currentElement = element(group);
 			
 			// Add top-most element directly to XML document
 			document.appendChild(currentElement);
@@ -56,10 +55,11 @@ public class Groups {
 	
 	protected void recursive_write(org.w3c.dom.Element parent, Element child)
 	{
-		parent.appendChild(element(child));
+		org.w3c.dom.Element elem = element(child);
+		parent.appendChild(elem);
 		
 		if (child.hasChildren())
-			child.getChildren().stream().forEach(c -> recursive_write(currentElement, child) );
+			child.getChildren().stream().forEach(c -> recursive_write(elem, c) );
 	}
 	
 	/**
