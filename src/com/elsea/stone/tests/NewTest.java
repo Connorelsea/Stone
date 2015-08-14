@@ -3,6 +3,7 @@ package com.elsea.stone.tests;
 import org.junit.Test;
 
 import com.elsea.stone.groups.Group;
+import com.elsea.stone.groups.Groups;
 
 public class NewTest {
 	
@@ -30,6 +31,10 @@ public class NewTest {
 			.end();
 		
 		g.show();
+		
+		System.out.println(g.search().property("username").getName());
+		
+		Groups.get().write(g);
 	}
 
 }
