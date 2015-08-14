@@ -27,6 +27,14 @@ public class Groups {
 		return instance;
 	}
 	
+	/**
+	 * Creates an XML document from a Stone Group. The XML document that
+	 * was created is stored as a member of the Groups obect and  can be
+	 * accessed via accessor methods.
+	 * 
+	 * @param group The Stone Group to create an XML document from
+	 * @return      Instance of Groups object to allow chaining
+	 */
 	public Groups write(Group group)
 	{
 		try
@@ -105,13 +113,33 @@ public class Groups {
 		return e;
 	}
 	
+	/**
+	 * Writes the current XML document to a file.
+	 * 
+	 * @param file The file to write the XML document to
+	 * @return     A boolean indicating whether or not the write was successful
+	 */
 	public boolean to(File file)
 	{
-		
-		return false;
+		return write(new StreamResult(file));
 	}
 	
+	/**
+	 * Shows the current XML document on System.out
+	 */
 	public void show()
+	{
+		write(new StreamResult(System.out));
+	}
+	
+	/**
+	 * Writes the current XML document to a specified Stream Result.
+	 * 
+	 * @param streamResult Location to write the XML document to.
+	 * @return             A boolean indicating whether or not the
+	 *                      write was successful.
+	 */
+	protected boolean write(StreamResult streamResult)
 	{
 		if (document != null)
 		{
@@ -123,20 +151,19 @@ public class Groups {
 				transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 				transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 				
-				DOMSource source    = new DOMSource(document);
-				StreamResult result = new StreamResult(System.out);
+				DOMSource source = new DOMSource(document);
 		 
-				transformer.transform(source, result);
+				transformer.transform(source, streamResult);
+				
+				return true;
 			}
 			catch (Exception ex)
 			{
 				ex.printStackTrace();
 			}
 		}
-		else
-		{
-			System.out.println("Warning: XML not shown. Cannot show null document.");
-		}
+		
+		return false;
 	}
 	
 }

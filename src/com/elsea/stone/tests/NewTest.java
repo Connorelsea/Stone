@@ -1,5 +1,7 @@
 package com.elsea.stone.tests;
 
+import java.io.File;
+
 import org.junit.Test;
 
 import com.elsea.stone.groups.Group;
@@ -30,11 +32,9 @@ public class NewTest {
 				.property("last", "Elsea")
 			.end();
 		
-		g.show();
-		
-		System.out.println(g.search().property("username").getName());
-		
 		Groups.get().write(g).show();
+		
+		Groups.get().write(g).to(new File("C:\\Users\\connorelsea\\Desktop\\test.xml"));
 	}
 
 }
